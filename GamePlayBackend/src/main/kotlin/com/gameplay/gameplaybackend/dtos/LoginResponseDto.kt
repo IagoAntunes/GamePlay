@@ -1,5 +1,9 @@
 package com.gameplay.gameplaybackend.dtos
 
-data class LoginResponseDto (
-    val token:String
-)
+ class LoginResponseDto(
+    var id:Long = 0,
+    var username:String = "",
+    var token:String = "",
+    isSuccess:Boolean,
+    message:String
+) : BaseResponse(isSuccess,message)
