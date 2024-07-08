@@ -1,7 +1,9 @@
 package com.gameplay.gameplaybackend.models
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.*
 import org.springframework.security.core.GrantedAuthority
+import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 
 @Entity
@@ -13,31 +15,26 @@ class UserModel : UserDetails {
     val id:Long = 0
 
     @Column(name =  "username", nullable = false)
-     val userName:String = ""
+     var userName:String = ""
 
     @Column(name =  "password", nullable = false)
-    private var password:String = ""
+     var passwordUser:String = ""
 
-    @Column(name = "role_id", nullable = false)
-    val idRole: Long = 0
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "role_id")
+    lateinit var role: RoleModel
 
     override fun getPassword(): String {
-        return this.password!!
+        return this.passwordUser
     }
 
     override fun getUsername(): String {
-        return this.userName!!
+        return this.userName
     }
 
     override fun getAuthorities(): Collection<GrantedAuthority> {
-        val roleName = findRoleNameById(idRole)
-        val role = RoleModel()
-        role.name = roleName
-        return listOf(role)
-    }
-
-    fun findRoleNameById(roleId: Long): String {
-        return "ROLE_EXAMPLE"
+        return listOf(SimpleGrantedAuthority(role.name))
     }
 
 }

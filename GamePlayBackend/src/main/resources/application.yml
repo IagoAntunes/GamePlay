@@ -9,3 +9,9 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: false
+server:
+  port: 8081
+security:
+  jwt:
+    token:
+      secret-key: 53cr37
