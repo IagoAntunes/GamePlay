@@ -25,21 +25,24 @@ class SecurityFilter() : OncePerRequestFilter(){
         response: HttpServletResponse,
         filterChain: FilterChain
     ) {
-        if(request.servletPath.equals("*/auth/login") || request.servletPath.equals("*/auth/register")){
-            filterChain.doFilter(request, response)
-            return
-        }
+        //Recuperar token do header
         val token = this.recoverToken(request)
-        if(token != null){
-            val subject = tokenService.validateToken(token)
+
+
+        if(token != null && tokenService.validateToken(token)){
+            //Pega username do token
+            val subject = tokenService.getSubject(token)
+            //Busca user pelo username
             val user:UserDetails = userRepository.findByUsername(subject)!!
 
+            //Faz autenticação do usuario
             val authentication = UsernamePasswordAuthenticationToken(user,null,user.authorities)
             SecurityContextHolder.getContext().authentication = authentication
         }
         filterChain.doFilter(request,response)
     }
 
+    //Recupera token do header
     private fun recoverToken(request: HttpServletRequest): String? {
         val token = request.getHeader("Authorization") ?: return null
         return token.replace("Bearer ","")

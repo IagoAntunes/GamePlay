@@ -50,8 +50,9 @@ class SecurityConfigurations{
             .authorizeHttpRequests {
                 request ->
                 request
-                    .requestMatchers("/auth/register").permitAll()
-                    .requestMatchers("/auth/login").permitAll()
+                    .requestMatchers(HttpMethod.POST,"/auth/register").permitAll()
+                    .requestMatchers(HttpMethod.POST,"/auth/login").permitAll()
+                    .requestMatchers(HttpMethod.POST,"/auth/refreshToken").permitAll()
                     .requestMatchers(HttpMethod.POST,"/games").hasRole("ADMIN")
                     .anyRequest().authenticated()
             }

@@ -10,8 +10,8 @@ class UserTokenModel {
     val id:Long = 0
 
     @Column(name = "token", nullable = false)
-    val token:String = ""
+    var token:String = ""
 
     @Column(name = "user_id", nullable = false)
-    val userId:Long = 0
+    var userId:Long = 0
 }

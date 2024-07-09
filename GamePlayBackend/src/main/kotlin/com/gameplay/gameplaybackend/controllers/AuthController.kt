@@ -1,15 +1,18 @@
 package com.gameplay.gameplaybackend.controllers
 
 import com.gameplay.gameplaybackend.dtos.LoginRequest
+import com.gameplay.gameplaybackend.dtos.RefreshTokenRequestHeaderDto
 import com.gameplay.gameplaybackend.dtos.RegisterRequestDto
 import com.gameplay.gameplaybackend.services.AuthService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Lazy
+import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 
 import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestHeader
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
@@ -33,6 +36,19 @@ class AuthController {
         val result = authService.registerUser(request.username,request.password,request.role)
         val statusCode:Int = result.statusCode ?: if (result.isSuccess) HttpStatus.OK.value() else HttpStatus.BAD_REQUEST.value()
         return ResponseEntity.status(statusCode).body(result)
+    }
+
+    @PostMapping("/refreshToken")
+    fun refreshToken(@RequestHeader(HttpHeaders.AUTHORIZATION) authorizationHeader: String): ResponseEntity<Any>{
+        if (authorizationHeader.isNotBlank() && authorizationHeader.startsWith("Bearer ")) {
+            val token = authorizationHeader.substringAfter("Bearer ").trim()
+            val result = authService.refreshToken(token)
+            val statusCode = result.statusCode ?: if (result.isSuccess) HttpStatus.OK.value() else HttpStatus.BAD_REQUEST.value()
+
+            return ResponseEntity.status(statusCode).body(result)
+        }
+
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
     }
 
 }
