@@ -9,8 +9,8 @@ class GameModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id:Long = 0
     @Column(nullable = false, name = "name")
-    val name:String = ""
+    var name:String = ""
     @Column(nullable = false, name =  "image_url")
-    val imageUrl: String = ""
+    var imageUrl: String = ""
 
 }
