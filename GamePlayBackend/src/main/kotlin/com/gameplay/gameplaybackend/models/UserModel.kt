@@ -22,7 +22,7 @@ class UserModel : UserDetails {
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "role_id")
+    @JoinColumn(name = "id_role")
     lateinit var role: RoleModel
 
     override fun getPassword(): String {

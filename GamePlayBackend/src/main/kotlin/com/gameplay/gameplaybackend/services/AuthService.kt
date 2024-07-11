@@ -1,6 +1,7 @@
 package com.gameplay.gameplaybackend.services
 
 import com.gameplay.gameplaybackend.dtos.*
+import com.gameplay.gameplaybackend.dtos.responses.*
 import com.gameplay.gameplaybackend.infra.security.TokenService
 import com.gameplay.gameplaybackend.models.RoleModel
 import com.gameplay.gameplaybackend.models.UserModel
@@ -43,8 +44,8 @@ class AuthService  : UserDetailsService{
         return user
     }
 
-    fun loginUser(username: String, password: String): BaseResponse {
-        val result:LoginResponseDto?
+    fun loginUser(username: String, password: String): IBaseResponse {
+        val result: LoginResponseDto?
          try {
             val usernamePassword = UsernamePasswordAuthenticationToken(username, password)
             val auth = authManager.authenticate(usernamePassword)
@@ -65,7 +66,7 @@ class AuthService  : UserDetailsService{
         }
     }
 
-    fun registerUser(username:String,password: String,idRole:Long) : BaseResponse{
+    fun registerUser(username:String,password: String,idRole:Long) : IBaseResponse {
         try {
             val userAlreadyExists = this.userRepository.findByUsername(username)
             if(userAlreadyExists != null){
@@ -84,7 +85,7 @@ class AuthService  : UserDetailsService{
         }
     }
 
-    fun refreshToken(token: String): BaseResponse {
+    fun refreshToken(token: String): IBaseResponse {
         try {
             val expiresInToken = tokenService.getExpiresAtFromToken(token)
             val sdf = SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH)

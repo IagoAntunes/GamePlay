@@ -1,8 +1,8 @@
-package com.gameplay.gameplaybackend.dtos
+package com.gameplay.gameplaybackend.dtos.responses
 
 class RefreshTokenResponseDto(
     val newToken:String,
     message:String,
     isSuccess:Boolean,
-) : BaseResponse(isSuccess,message) {
+) : IBaseResponse(isSuccess,message) {
 }

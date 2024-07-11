@@ -3,7 +3,7 @@ package com.gameplay.gameplaybackend.models
 import jakarta.persistence.*
 
 @Entity
-@Table(name = "userTokens")
+@Table(name = "usertokens")
 class UserTokenModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
