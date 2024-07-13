@@ -16,10 +16,18 @@ abstract class IAuthListener extends IAuthState {
   });
 }
 
-class SuccessAuthListener extends IAuthListener {
-  SuccessAuthListener({required super.message});
+class SuccessRegisterListener extends IAuthListener {
+  SuccessRegisterListener({required super.message});
 }
 
-class FailureAuthListener extends IAuthListener {
-  FailureAuthListener({required super.message});
+class FailureRegisterListener extends IAuthListener {
+  FailureRegisterListener({required super.message});
+}
+
+class SuccessLoginListener extends IAuthListener {
+  SuccessLoginListener({required super.message});
+}
+
+class FailureLoginListener extends IAuthListener {
+  FailureLoginListener({required super.message});
 }

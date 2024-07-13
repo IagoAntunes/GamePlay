@@ -38,7 +38,8 @@ class _CTextFormFieldState extends State<CTextFormField> {
       ),
       child: TextFormField(
         controller: widget.textEditingController,
-        obscureText: showPassword,
+        obscureText:
+            (widget.obscureText && showPassword == false) ? true : false,
         enabled: widget.enabled,
         decoration: InputDecoration(
           labelText: widget.labelText,

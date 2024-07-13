@@ -3,4 +3,5 @@ class AppApiUrls {
 
   //Auth
   static const String registerUser = "$_baseUrl/auth/register";
+  static const String login = "$_baseUrl/auth/login";
 }

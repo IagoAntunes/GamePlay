@@ -14,9 +14,20 @@ class AuthCubit extends Cubit<IAuthState> {
     emit(LoadingAuthState());
     final result = await _authRepository.registerUser(username, password);
     if (result.isSuccess) {
-      emit(SuccessAuthListener(message: result.message));
+      emit(SuccessRegisterListener(message: result.message));
     } else {
-      emit(FailureAuthListener(message: result.message));
+      emit(FailureRegisterListener(message: result.message));
+    }
+    emit(IdleAuthState());
+  }
+
+  void login({required String username, required String password}) async {
+    emit(LoadingAuthState());
+    final result = await _authRepository.login(username, password);
+    if (result.isSuccess) {
+      emit(SuccessLoginListener(message: result.message));
+    } else {
+      emit(FailureLoginListener(message: result.message));
     }
     emit(IdleAuthState());
   }

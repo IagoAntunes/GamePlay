@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gameplay_app/core/theme/app_colors.dart';
+import 'package:gameplay_app/core/url/app_assets_urls.dart';
 import 'package:gameplay_app/src/features/auth/presentation/cubits/auth_cubit.dart';
 import 'package:gameplay_app/src/features/auth/presentation/states/auth_state.dart';
 import 'package:gameplay_app/src/features/auth/presentation/widgets/login_widget.dart';
 import 'package:gameplay_app/src/features/auth/presentation/widgets/onboarding_widget.dart';
 import 'package:gameplay_app/src/features/auth/presentation/widgets/register_widget.dart';
+import 'package:gameplay_app/src/features/home/presentation/pages/home_page.dart';
 import 'package:get_it/get_it.dart';
 
 class OnBoardingPage extends StatefulWidget {
@@ -38,6 +40,48 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
 
   final cubit = GetIt.I.get<AuthCubit>();
 
+  void _loginListeners(Object? state) {
+    if (state is SuccessLoginListener) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Login realizado com sucesso!'),
+        ),
+      );
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const HomePage(),
+        ),
+      );
+    } else if (state is FailureLoginListener) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(state.message.isEmpty
+              ? 'Erro ao realizar login!'
+              : state.message),
+        ),
+      );
+    }
+  }
+
+  void _registerListeners(Object? state) {
+    if (state is SuccessRegisterListener) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Cadastro realizado com sucesso!'),
+        ),
+      );
+    } else if (state is FailureRegisterListener) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(state.message.isEmpty
+              ? 'Erro ao realizar cadastro!'
+              : state.message),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,22 +89,8 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
       resizeToAvoidBottomInset: false,
       body: BlocConsumer(
         listener: (context, state) {
-          if (state is SuccessAuthListener) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Usuário criado com sucesso!'),
-              ),
-            );
-            backToOnBoarding();
-          } else if (state is FailureAuthListener) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(state.message.isEmpty
-                    ? 'Erro ao criar usuário!'
-                    : state.message),
-              ),
-            );
-          }
+          _registerListeners(state);
+          _loginListeners(state);
         },
         listenWhen: (previous, current) => current is IAuthListener,
         buildWhen: (previous, current) => current is! IAuthListener,
@@ -92,7 +122,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                         right: 0,
                         left: 0,
                         child: Image.asset(
-                          'assets/images/on_boarding_background.png',
+                          AppAssetsUrls.onBoardingBack,
                           fit: BoxFit.fill,
                         ),
                       ),
@@ -100,7 +130,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                         right: 0,
                         left: 0,
                         child: Image.asset(
-                          'assets/images/lee_background.png',
+                          AppAssetsUrls.leeBackground,
                         ),
                       ),
                     ],
