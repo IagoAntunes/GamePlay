@@ -10,7 +10,7 @@ spring:
       ddl-auto: update
     show-sql: false
 server:
-  port: 8081
+  address: 192.168.5.178
 security:
   jwt:
     token:
