@@ -1,23 +1,25 @@
 import 'package:dio/dio.dart';
 import 'package:gameplay_app/core/response/base_api_response.dart';
 import 'package:gameplay_app/core/url/app_api_urls.dart';
+import 'package:gameplay_app/services/http/i_http_service.dart';
 import 'package:gameplay_app/src/features/auth/datasource/datasource/i_auth_datasource.dart';
 import 'package:gameplay_app/src/features/auth/domain/requests/login_user_request.dart';
 import 'package:gameplay_app/src/features/auth/domain/requests/register_user_request.dart';
 
 class AuthDataSource extends IAuthDataSource {
-  AuthDataSource({required Dio dio}) : _dio = dio;
-  final Dio _dio;
+  AuthDataSource({required IHttpService httpService})
+      : _httpService = httpService;
+  final IHttpService _httpService;
 
   @override
   Future<IBaseApiResponse> registerUser(RegisterUserRequest request) async {
     try {
-      final result = await _dio.post(
+      final result = await _httpService.post(
         AppApiUrls.registerUser,
-        data: request.toJson(),
+        request.toJson(),
       );
 
-      if (result.statusCode! >= 200 && result.statusCode! < 300) {
+      if (result!.statusCode! >= 200 && result.statusCode! < 300) {
         return ResponseApiData.success(
           result.data,
           result.statusCode,
@@ -38,12 +40,12 @@ class AuthDataSource extends IAuthDataSource {
   @override
   Future<IBaseApiResponse> login(LoginUserRequest request) async {
     try {
-      final result = await _dio.post(
+      final result = await _httpService.post(
         AppApiUrls.login,
-        data: request.toJson(),
+        request.toJson(),
       );
 
-      if (result.statusCode! >= 200 && result.statusCode! < 300) {
+      if (result!.statusCode! >= 200 && result.statusCode! < 300) {
         return ResponseApiData.success(
           result.data,
           result.statusCode,

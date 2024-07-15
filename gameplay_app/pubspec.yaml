@@ -39,6 +39,8 @@ dependencies:
   flutter_bloc: ^8.1.6
   get_it: ^7.7.0
   dio: ^5.5.0+1
+  shared_preferences: ^2.2.3
+  flutter_secure_storage: ^9.2.2
 
 dev_dependencies:
   flutter_test:
