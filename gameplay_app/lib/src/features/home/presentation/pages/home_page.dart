@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:gameplay_app/core/control_auth/control_auth.cubit.dart';
 import 'package:gameplay_app/core/theme/app_colors.dart';
 import 'package:gameplay_app/src/features/home/presentation/widgets/home_list_classroom.dart';
@@ -27,13 +25,13 @@ class HomePage extends StatelessWidget {
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        body: SafeArea(
+        body: const SafeArea(
           child: Padding(
-            padding: const EdgeInsets.only(top: 24, left: 16, right: 16),
+            padding: EdgeInsets.only(top: 24, left: 16, right: 16),
             child: Column(
               children: [
                 HomeHeader(),
-                const Expanded(
+                Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

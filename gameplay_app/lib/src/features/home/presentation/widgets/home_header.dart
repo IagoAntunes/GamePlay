@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gameplay_app/src/features/create_class_room/presentation/pages/create_gameroom_page.dart';
 import 'package:gameplay_app/src/features/home/presentation/cubits/home_cubit.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../../../../core/theme/app_colors.dart';
 
 class HomeHeader extends StatefulWidget {
-  HomeHeader({
+  const HomeHeader({
     super.key,
   });
 
@@ -79,7 +80,14 @@ class _HomeHeaderState extends State<HomeHeader> {
               height: 48,
               width: 48,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const CreateGameRoomPage(),
+                    ),
+                  );
+                },
                 style: ElevatedButton.styleFrom(
                   padding: EdgeInsets.zero,
                   shape: RoundedRectangleBorder(

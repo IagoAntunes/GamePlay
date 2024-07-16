@@ -4,11 +4,11 @@ import 'package:gameplay_app/src/features/home/presentation/states/home_categori
 
 class HomeCategoriesCubit extends Cubit<IHomeCategoriesState> {
   HomeCategoriesCubit({
-    required IHomeCategoriesRepository homeCategoriesRepository,
+    required ICategoriesRepository homeCategoriesRepository,
   })  : _homeCategoriesRepository = homeCategoriesRepository,
         super(IdleHomeCategoriesState());
 
-  final IHomeCategoriesRepository _homeCategoriesRepository;
+  final ICategoriesRepository _homeCategoriesRepository;
 
   void getCategories() async {
     emit(LoadingHomeCategoriesState());

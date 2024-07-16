@@ -3,9 +3,8 @@ import 'package:gameplay_app/src/features/home/domain/models/category_model.dart
 import 'package:gameplay_app/src/features/home/domain/repositories/i_home_categories_repository.dart';
 import 'package:gameplay_app/src/features/home/domain/results/get_home_categories_result.dart';
 
-class HomeCategoriesRepository implements IHomeCategoriesRepository {
-  HomeCategoriesRepository(
-      {required ICategoriesDataSource categoriesDataSource})
+class CategoriesRepository implements ICategoriesRepository {
+  CategoriesRepository({required ICategoriesDataSource categoriesDataSource})
       : _categoriesDataSource = categoriesDataSource;
 
   final ICategoriesDataSource _categoriesDataSource;
