@@ -4,6 +4,9 @@ class AppColors {
   static const background = Color(0xff0A1033);
   static const primary = Color(0xffE51C44);
 
+  static const backgroundGradient1 = Color(0xff0E1647);
+  static const backgroundGradient2 = Color(0xff0A1033);
+
   //Shapes
   static const boxes1 = Color(0xff1D2766);
   static const boxes2 = Color(0xff171F52);

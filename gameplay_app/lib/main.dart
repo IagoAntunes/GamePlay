@@ -41,7 +41,6 @@ class MyApp extends StatelessWidget {
       ),
       home: BlocListener(
         listener: (context, state) {
-          print("Oi");
           if (state is LogoutControlAuthListener) {
             Navigator.pushReplacement(
               context,
@@ -50,13 +49,14 @@ class MyApp extends StatelessWidget {
           } else if (state is LoggedControlAuthListener) {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => HomePage()),
+              MaterialPageRoute(builder: (context) => const HomePage()),
             );
           }
         },
         bloc: _cubit,
-        child:
-            _cubit.state.isAuthenticated ? HomePage() : const OnBoardingPage(),
+        child: _cubit.state.isAuthenticated
+            ? const HomePage()
+            : const OnBoardingPage(),
       ),
     );
   }

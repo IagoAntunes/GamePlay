@@ -29,7 +29,7 @@ class _HomeCategoriesState extends State<HomeCategories> {
     return BlocBuilder(
       bloc: GetIt.I.get<HomeCategoriesCubit>(),
       builder: (context, state) => switch (_categoriesCubit.state) {
-        (LoadingHomeCategoriesState loadingState) => const Center(
+        LoadingHomeCategoriesState() => const Center(
             child: CircularProgressIndicator(),
           ),
         (SuccessHomeCategoriesState successState) => SizedBox(
