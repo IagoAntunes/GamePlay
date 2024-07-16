@@ -15,3 +15,8 @@ security:
   jwt:
     token:
       secret-key: 53cr37
+spring-doc:
+  paths-to-match:
+    - /**
+  swagger-ui:
+    use-root-path: true

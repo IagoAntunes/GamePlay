@@ -3,12 +3,25 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:gameplay_app/services/database/secure_storage/i_secure_storage.dart';
+import 'package:gameplay_app/services/http/authentication_interceptor.dart';
 import 'package:gameplay_app/services/http/http_response.dart';
+import 'package:get_it/get_it.dart';
 
 import 'i_http_service.dart';
 
 class DioHttpService implements IHttpService {
   final _dio = Dio();
+
+  DioHttpService() {
+    _dio.interceptors.addAll(
+      [
+        AuthenticationInterceptor(
+          secureStorage: GetIt.I.get<ISecureStorage>(),
+        ),
+      ],
+    );
+  }
 
   @override
   Future<HttpResponse<T>?> delete<T>(String url, data,

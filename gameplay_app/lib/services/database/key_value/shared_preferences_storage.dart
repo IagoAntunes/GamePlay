@@ -18,15 +18,15 @@ class SharedPreferencesStorage implements IKeyValueStorage {
   Future<void> set<T>(String key, T value) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
 
-    if (T is String) {
+    if (T == String) {
       await sharedPreferences.setString(key, value as String);
-    } else if (T is int) {
+    } else if (T == int) {
       await sharedPreferences.setInt(key, value as int);
-    } else if (T is double) {
+    } else if (T == double) {
       await sharedPreferences.setDouble(key, value as double);
-    } else if (T is bool) {
+    } else if (T == bool) {
       await sharedPreferences.setBool(key, value as bool);
-    } else if (T is List<String>) {
+    } else if (T == List<String>) {
       await sharedPreferences.setStringList(key, value as List<String>);
     }
   }

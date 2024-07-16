@@ -50,7 +50,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => const HomePage(),
+          builder: (context) => HomePage(),
         ),
       );
     } else if (state is FailureLoginListener) {

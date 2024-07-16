@@ -18,7 +18,7 @@ class AppBinding {
 
     _setUpSharedPackages();
 
-    getIt.registerSingleton(
+    getIt.registerSingleton<ControlAuthCubit>(
       ControlAuthCubit(
         sharedPreferencesService: getIt(),
         secureStorage: getIt(),
@@ -38,8 +38,8 @@ class AppBinding {
 
   static Future<void> _setUpSharedPackages() async {
     var getIt = GetIt.instance;
+    getIt.registerSingleton<ISecureStorage>(SecureStorage());
     getIt.registerSingleton<IHttpService>(DioHttpService());
     getIt.registerSingleton<IKeyValueStorage>(SharedPreferencesStorage());
-    getIt.registerSingleton<ISecureStorage>(SecureStorage());
   }
 }
