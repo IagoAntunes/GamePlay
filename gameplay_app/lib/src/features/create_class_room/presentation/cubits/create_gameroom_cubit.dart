@@ -21,7 +21,12 @@ class CreateGameRoomCubit extends Cubit<ICreateGameRoomState> {
     _time = time;
   }
 
-  void _setGame() {
-    //
+  void createGameRoom() {
+    emit(LoadingCreateGameRoomState());
+  }
+
+  void setGame(GameModel gameSelected) {
+    _gameSelected = gameSelected;
+    emit(IdleCreateGameRoomState());
   }
 }

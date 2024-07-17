@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gameplay_app/src/features/create_class_room/presentation/pages/create_gameroom_page.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../../../../core/theme/app_colors.dart';
@@ -41,7 +42,14 @@ class _HomeCategoriesState extends State<HomeCategories> {
               itemBuilder: (context, index) => InkWell(
                 borderRadius: BorderRadius.circular(8),
                 onTap: () {
-                  //
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CreateGameRoomPage(
+                        selectedCategory: index,
+                      ),
+                    ),
+                  );
                 },
                 child: Container(
                   constraints: const BoxConstraints(

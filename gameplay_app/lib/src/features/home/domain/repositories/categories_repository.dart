@@ -12,7 +12,6 @@ class CategoriesRepository implements ICategoriesRepository {
   @override
   Future<GetHomeCategoriesResult> getCategories() async {
     final result = await _categoriesDataSource.getCategories();
-    print(result);
 
     List<CategoryModel> listCategories = [];
 

@@ -10,6 +10,11 @@ import 'package:gameplay_app/src/features/home/domain/repositories/i_home_catego
 import 'package:gameplay_app/src/features/home/presentation/cubits/home_categories_cubit.dart';
 import 'package:gameplay_app/src/features/home/presentation/cubits/home_cubit.dart';
 import 'package:gameplay_app/src/features/home/presentation/cubits/home_list_game_room_cubit.dart';
+import 'package:gameplay_app/src/features/list_games/datasource/datasource/games_datasouce.dart';
+import 'package:gameplay_app/src/features/list_games/datasource/datasource/i_games_datasource.dart';
+import 'package:gameplay_app/src/features/list_games/domain/repositories/games_repository.dart';
+import 'package:gameplay_app/src/features/list_games/domain/repositories/i_games_repository.dart';
+import 'package:gameplay_app/src/features/list_games/presentation/cubits/list_games_cubit.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../datasource/datasource/i_game_room_datasource.dart';
@@ -20,12 +25,13 @@ class HomeBinding {
 
     setUpCreateGameRoom();
     setUpHomeListGameRoom();
+    setUpGames();
     getIt.registerFactory<ICategoriesDataSource>(
         () => CategoriesDataSource(httpService: getIt()));
     getIt.registerFactory<ICategoriesRepository>(
         () => CategoriesRepository(categoriesDataSource: getIt()));
-    getIt.registerSingleton(
-      CreateGameRoomCategoriesCubit(
+    getIt.registerFactory(
+      () => CreateGameRoomCategoriesCubit(
         categoriesRepository: getIt(),
       ),
     );
@@ -40,7 +46,22 @@ class HomeBinding {
 
   static Future<void> setUpCreateGameRoom() async {
     var getIt = GetIt.instance;
-    getIt.registerSingleton(CreateGameRoomCubit());
+    getIt.registerFactory(() => CreateGameRoomCubit());
+  }
+
+  static Future<void> setUpGames() async {
+    var getIt = GetIt.instance;
+    getIt.registerFactory<IGamesDataSource>(
+      () => GamesDataSource(httpService: getIt()),
+    );
+    getIt.registerFactory<IGamesRepository>(
+      () => GamesRepository(gamesDataSource: getIt()),
+    );
+    getIt.registerFactory(
+      () => GameListCubit(
+        gamesRepository: getIt(),
+      ),
+    );
   }
 
   static Future<void> setUpHomeListGameRoom() async {
@@ -50,8 +71,8 @@ class HomeBinding {
     getIt.registerFactory<IGameRoomRepository>(
         () => GameRoomRepository(gameRoomDataSource: getIt()));
 
-    getIt.registerSingleton(
-      HomeListGameRoomCubit(
+    getIt.registerFactory(
+      () => HomeListGameRoomCubit(
         gameRoomRepository: getIt(),
       ),
     );

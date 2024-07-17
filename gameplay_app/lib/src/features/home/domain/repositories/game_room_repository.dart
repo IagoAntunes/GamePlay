@@ -7,7 +7,7 @@ import '../results/get_home_game_rooms_result.dart';
 class GameRoomRepository implements IGameRoomRepository {
   GameRoomRepository({required IGameRoomDataSource gameRoomDataSource})
       : _gameRoomDataSource = gameRoomDataSource;
-  IGameRoomDataSource _gameRoomDataSource;
+  final IGameRoomDataSource _gameRoomDataSource;
 
   @override
   Future<GetHomeGameRoomsResult> getAll() async {

@@ -48,8 +48,8 @@ class HomePage extends StatelessWidget {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            final _cubit = GetIt.I.get<ControlAuthCubit>();
-            _cubit.logout();
+            final cubit = GetIt.I.get<ControlAuthCubit>();
+            cubit.logout();
           },
         ),
       ),
