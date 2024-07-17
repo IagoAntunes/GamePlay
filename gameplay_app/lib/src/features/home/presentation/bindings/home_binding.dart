@@ -1,5 +1,5 @@
-import 'package:gameplay_app/src/features/create_class_room/presentation/cubits/create_gameroom_categories_cubit.dart';
-import 'package:gameplay_app/src/features/create_class_room/presentation/cubits/create_gameroom_cubit.dart';
+import 'package:gameplay_app/src/features/create_game_room/presentation/cubits/create_gameroom_categories_cubit.dart';
+import 'package:gameplay_app/src/features/create_game_room/presentation/cubits/create_gameroom_cubit.dart';
 import 'package:gameplay_app/src/features/home/datasource/datasource/categories_datasource.dart';
 import 'package:gameplay_app/src/features/home/datasource/datasource/game_room_datasource.dart';
 import 'package:gameplay_app/src/features/home/datasource/datasource/i_categories_datasource.dart';
@@ -46,7 +46,13 @@ class HomeBinding {
 
   static Future<void> setUpCreateGameRoom() async {
     var getIt = GetIt.instance;
-    getIt.registerFactory(() => CreateGameRoomCubit());
+
+    getIt.registerFactory(
+      () => CreateGameRoomCubit(
+        gameRoomRepository: getIt(),
+        secureStorage: getIt(),
+      ),
+    );
   }
 
   static Future<void> setUpGames() async {
@@ -71,8 +77,8 @@ class HomeBinding {
     getIt.registerFactory<IGameRoomRepository>(
         () => GameRoomRepository(gameRoomDataSource: getIt()));
 
-    getIt.registerFactory(
-      () => HomeListGameRoomCubit(
+    getIt.registerSingleton(
+      HomeListGameRoomCubit(
         gameRoomRepository: getIt(),
       ),
     );

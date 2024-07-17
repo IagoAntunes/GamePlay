@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gameplay_app/core/theme/app_colors.dart';
 import 'package:gameplay_app/core/widgets/c_text_field.dart';
-import 'package:gameplay_app/src/features/create_class_room/presentation/cubits/create_gameroom_cubit.dart';
+import 'package:gameplay_app/src/features/create_game_room/presentation/cubits/create_gameroom_cubit.dart';
+import 'package:gameplay_app/src/features/create_game_room/presentation/states/create_gameroom_state.dart';
 import 'package:gameplay_app/src/features/list_games/presentation/pages/list_games_pages.dart';
 import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart';
 
-import '../widgets/create_gameroom_widget.dart';
+import '../../../home/presentation/cubits/home_list_game_room_cubit.dart';
+import '../widgets/create_gameroom_categories_widget.dart';
 
 class CreateGameRoomPage extends StatefulWidget {
   const CreateGameRoomPage({
@@ -59,8 +61,31 @@ class _CreateGameRoomPageState extends State<CreateGameRoomPage> {
             top: 24,
             bottom: MediaQuery.of(context).viewInsets.bottom,
           ),
-          child: BlocBuilder(
+          child: BlocConsumer(
             bloc: _createGameRoomCubit,
+            listenWhen: (previous, current) =>
+                current is ICreateGameRoomListener,
+            listener: (context, state) {
+              if (state is SuccessCreateGameRoomListener) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Partida criada com sucesso'),
+                  ),
+                );
+                final homeListGameRoomCubit =
+                    GetIt.I.get<HomeListGameRoomCubit>();
+                homeListGameRoomCubit.getAllGameRooms();
+                Navigator.pop(context);
+              } else if (state is FailureCreateGameRoomListener) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Erro ao criar partida'),
+                  ),
+                );
+              }
+            },
+            buildWhen: (previous, current) =>
+                current is! ICreateGameRoomListener,
             builder: (context, state) {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,6 +93,7 @@ class _CreateGameRoomPageState extends State<CreateGameRoomPage> {
                 children: [
                   CreateGameRoomCategories(
                     selectedCategory: widget.selectedCategory,
+                    createGameRoomCubit: _createGameRoomCubit,
                   ),
                   const SizedBox(height: 25),
                   _SelectGame(createGameRoomCubit: _createGameRoomCubit),
@@ -142,8 +168,8 @@ class _CreateGameRoomPageState extends State<CreateGameRoomPage> {
                                     if (value != null) {
                                       _timeController.text =
                                           '${value.hour}:${value.minute}';
-                                      _createGameRoomCubit
-                                          .setTime(value.toString());
+                                      _createGameRoomCubit.setTime(
+                                          '${value.hour}:${value.minute}');
                                     }
                                   },
                                 );
@@ -167,6 +193,9 @@ class _CreateGameRoomPageState extends State<CreateGameRoomPage> {
                   CTextFormField(
                     textEditingController: _descriptionController,
                     hintText: '',
+                    onChanged: (value) {
+                      _createGameRoomCubit.description = value;
+                    },
                   ),
                   const SizedBox(height: 32),
                   SizedBox(
@@ -179,7 +208,7 @@ class _CreateGameRoomPageState extends State<CreateGameRoomPage> {
                               if (_timeController.text.isNotEmpty &&
                                   _dayMonthController.text.isNotEmpty &&
                                   _descriptionController.text.isNotEmpty) {
-                                //
+                                _createGameRoomCubit.createGameRoom();
                               } else {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(

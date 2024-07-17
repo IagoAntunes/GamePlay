@@ -41,6 +41,7 @@ class AuthRepository extends IAuthRepository {
         message: result.message,
         token: result.result!['token'],
         username: result.result!['username'],
+        id: result.result!['id'],
       );
     } else {
       return LoginUserResult(
@@ -48,6 +49,7 @@ class AuthRepository extends IAuthRepository {
         message: result.message,
         token: '',
         username: '',
+        id: 0,
       );
     }
   }

@@ -78,9 +78,8 @@ class _HomeListClassRoomsState extends State<HomeListClassRooms> {
                         ),
                       ),
                       itemBuilder: (context, index) => ListTile(
-                        leading: const Icon(
-                          Icons.person,
-                          color: Colors.white,
+                        leading: Image.network(
+                          successState.gameRooms[index].game.imageUrl,
                         ),
                         title: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,

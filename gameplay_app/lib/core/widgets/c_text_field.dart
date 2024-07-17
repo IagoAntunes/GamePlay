@@ -12,6 +12,7 @@ class CTextFormField extends StatefulWidget {
     this.enabled = true,
     this.readOnly = false,
     this.onTap,
+    this.onChanged,
   });
   final String? labelText;
   final String? hintText;
@@ -21,6 +22,7 @@ class CTextFormField extends StatefulWidget {
   final bool readOnly;
 
   final void Function()? onTap;
+  final void Function(String)? onChanged;
   @override
   State<CTextFormField> createState() => _CTextFormFieldState();
 }
@@ -45,6 +47,7 @@ class _CTextFormFieldState extends State<CTextFormField> {
       ),
       child: TextFormField(
         onTap: widget.onTap,
+        onChanged: widget.onChanged,
         controller: widget.textEditingController,
         obscureText:
             (widget.obscureText && showPassword == false) ? true : false,

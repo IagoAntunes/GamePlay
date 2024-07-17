@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 class CategoryModel {
-  String id;
+  int id;
   String name;
   String imageUrl;
   CategoryModel({
@@ -20,7 +20,7 @@ class CategoryModel {
 
   factory CategoryModel.fromMap(Map<String, dynamic> map) {
     return CategoryModel(
-      id: map['id'].toString(),
+      id: map['id'],
       name: map['name'] as String,
       imageUrl: map['imageUrl'] as String,
     );

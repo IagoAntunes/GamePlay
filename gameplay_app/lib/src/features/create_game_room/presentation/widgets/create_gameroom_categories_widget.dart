@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gameplay_app/src/features/create_game_room/presentation/cubits/create_gameroom_cubit.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../../../../core/theme/app_colors.dart';
 import '../cubits/create_gameroom_categories_cubit.dart';
-import '../states/create_gameroom_state.dart';
+import '../states/create_gameroom_categories_state.dart';
 
 class CreateGameRoomCategories extends StatefulWidget {
   const CreateGameRoomCategories({
     super.key,
     this.selectedCategory,
+    required this.createGameRoomCubit,
   });
 
   final int? selectedCategory;
+  final CreateGameRoomCubit createGameRoomCubit;
 
   @override
   State<CreateGameRoomCategories> createState() =>
@@ -30,19 +33,20 @@ class _CreateGameRoomCategoriesState extends State<CreateGameRoomCategories> {
   int _selectedCategory = 0;
   final _createGameRoomCategoriesCubit =
       GetIt.I.get<CreateGameRoomCategoriesCubit>();
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder(
       bloc: _createGameRoomCategoriesCubit,
       builder: (context, state) =>
           switch (_createGameRoomCategoriesCubit.state) {
-        LoadingCreateGameRoomState() => const SizedBox(
+        LoadingCreateGameRoomCategoriesState() => const SizedBox(
             height: 120,
             child: Center(
               child: CircularProgressIndicator(),
             ),
           ),
-        (SuccessCreateGameRoomState successState) => Column(
+        (SuccessCreateGameRoomCategoriesState successState) => Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
@@ -60,13 +64,15 @@ class _CreateGameRoomCategoriesState extends State<CreateGameRoomCategories> {
                   scrollDirection: Axis.horizontal,
                   separatorBuilder: (context, index) =>
                       const SizedBox(width: 8),
-                  itemCount: successState.listCategories.length,
+                  itemCount: successState.categories.length,
                   itemBuilder: (context, index) => InkWell(
                     borderRadius: BorderRadius.circular(8),
                     onTap: () {
                       setState(() {
                         _selectedCategory = index;
                       });
+                      widget.createGameRoomCubit
+                          .setCategory(successState.categories[index]);
                     },
                     child: Opacity(
                       opacity: _selectedCategory == index ? 1 : 0.5,
@@ -98,12 +104,12 @@ class _CreateGameRoomCategoriesState extends State<CreateGameRoomCategories> {
                             children: [
                               Expanded(
                                   child: Image.network(
-                                successState.listCategories[index].imageUrl,
+                                successState.categories[index].imageUrl,
                                 width: 48,
                                 height: 48,
                               )),
                               Text(
-                                successState.listCategories[index].name,
+                                successState.categories[index].name,
                                 style: const TextStyle(
                                   color: AppColors.textHeading,
                                   fontSize: 15,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gameplay_app/src/features/create_class_room/presentation/pages/create_gameroom_page.dart';
+import 'package:gameplay_app/src/features/create_game_room/presentation/pages/create_gameroom_page.dart';
 import 'package:gameplay_app/src/features/home/presentation/cubits/home_cubit.dart';
 import 'package:get_it/get_it.dart';
 

@@ -11,6 +11,7 @@ class AppApiUrls {
   //GameRoom
   static const String _baseGameRoom = "$_baseUrl/gameRoom";
   static const String getAllGameRoom = "$_baseGameRoom/getAll";
+  static const String createGameRoom = "$_baseGameRoom/create";
 
   //Games
   static const String _baseGames = "$_baseUrl/games";

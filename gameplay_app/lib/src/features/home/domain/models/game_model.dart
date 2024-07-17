@@ -1,5 +1,5 @@
 class GameModel {
-  String id;
+  int id;
   String name;
   String imageUrl;
 
@@ -11,7 +11,7 @@ class GameModel {
 
   factory GameModel.fromMap(Map<String, dynamic> map) {
     return GameModel(
-      id: map['id'].toString(),
+      id: map['id'],
       name: map['name'],
       imageUrl: map['imageUrl'],
     );
