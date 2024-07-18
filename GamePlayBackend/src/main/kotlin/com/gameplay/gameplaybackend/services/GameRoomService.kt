@@ -49,6 +49,11 @@ class GameRoomService {
             gameRoomModel.idUserOwner = user.id
             val gameRoomCreated = gameRoomRepository.save(gameRoomModel)
 
+            val gameRoomPlayersModel = GameRoomPlayersModel()
+            gameRoomPlayersModel.idGameRoom = gameRoomCreated.id
+            gameRoomPlayersModel.idUser = user.id
+            gameRoomPlayersRepository.save(gameRoomPlayersModel)
+
             return BaseResponse(gameRoomCreated.id,true,"Sala de jogo criada com sucesso")
         }catch (e:Exception){
             return FailureResponse("Erro ao criar sala de jogo")
@@ -67,7 +72,7 @@ class GameRoomService {
                     it.idGame,
                     CategoryDto(it.category!!.id,it.category.name,it.category.imageUrl),
                     UserDto(it.userOwner!!.id,it.userOwner!!.userName),
-                    GameDto(it.game!!.id,it.game.name,it.game.imageUrl),
+                    GameDto(it.game!!.id,it.game.name,it.game.description,it.game.imageUrl,it.game.bannerUrl),
                     it.listPlayers.map {
                         player ->
                         GameRoomPlayersDto(

@@ -54,6 +54,8 @@ class SecurityConfigurations{
                     .requestMatchers(HttpMethod.POST,"/auth/login").permitAll()
                     .requestMatchers(HttpMethod.POST,"/auth/refreshToken").permitAll()
                     .requestMatchers(HttpMethod.POST,"/games").hasRole("ADMIN")
+                    .requestMatchers("/v3/api-docs/**").permitAll()
+                    .requestMatchers("/swagger-ui/**").permitAll()
                     .anyRequest().authenticated()
             }
             .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter::class.java)

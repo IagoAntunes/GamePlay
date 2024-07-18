@@ -52,9 +52,9 @@ class GameController {
     fun createGame(
         @RequestBody request: CreateGameRequestDto,
         uriBuilder:UriComponentsBuilder) : ResponseEntity<IBaseResponse>{
-        val result = gamesService.createGame(request.name,request.imageUrl)
+        val result = gamesService.createGame(request.name,request.imageUrl,request.bannerUrl)
         val uri = uriBuilder.path("/games/${result.id}").build().toUri()
-        val response = CreateGameResponseDto(GameDto(result.id,result.name,result.imageUrl),"Jogos consultados com sucesso",true)
+        val response = CreateGameResponseDto(GameDto(result.id,result.name,result.description,result.imageUrl,result.bannerUrl),"Jogos consultados com sucesso",true)
         return ResponseEntity.created(uri).body(response)
     }
 

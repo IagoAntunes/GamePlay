@@ -16,17 +16,17 @@ class GamesService {
         val listGames = _gameRepository.findAll()
         val list:MutableList<GameDto> = mutableListOf()
         for(game in listGames){
-            list.add(GameDto(game.id,game.name,game.imageUrl))
+            list.add(GameDto(game.id,game.name,game.description,game.imageUrl,game.bannerUrl))
         }
         return list
     }
 
-    fun createGame(name: String, imageUrl: String): GameDto {
+    fun createGame(name: String, imageUrl: String,bannerUrl:String): GameDto {
         val gameModel:GameModel = GameModel()
         gameModel.name = name
         gameModel.imageUrl = imageUrl
         val result = _gameRepository.save(gameModel)
-        return GameDto(result.id,result.name,result.imageUrl)
+        return GameDto(result.id,result.name,result.description,result.imageUrl,result.bannerUrl)
     }
 
     fun updateGame(id: Long, name: String, imageUrl: String): GameDto? {
@@ -37,7 +37,7 @@ class GamesService {
                 it.imageUrl = imageUrl
                 _gameRepository.save(it)
             }
-            return GameDto(gameModel.get().id,gameModel.get().name,gameModel.get().imageUrl)
+            return GameDto(gameModel.get().id,gameModel.get().name,gameModel.get().description,gameModel.get().imageUrl,gameModel.get().bannerUrl)
         }catch (e: NoSuchElementException){
             return null
         }
@@ -46,7 +46,7 @@ class GamesService {
     fun getGameById(id: Long): GameDto? {
         try {
             val gameModel = _gameRepository.findById(id)
-            return GameDto(gameModel.get().id,gameModel.get().name,gameModel.get().imageUrl)
+            return GameDto(gameModel.get().id,gameModel.get().name,gameModel.get().description,gameModel.get().imageUrl,gameModel.get().bannerUrl)
         }catch (e:NoSuchElementException){
             return null
         }
