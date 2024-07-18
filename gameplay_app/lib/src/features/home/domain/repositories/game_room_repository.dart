@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gameplay_app/src/features/create_game_room/domain/requests/create_game_room_request.dart';
+import 'package:gameplay_app/src/features/game_room_info/domain/requests/enter_game_room_request.dart';
+import 'package:gameplay_app/src/features/game_room_info/domain/results/enter_game_room_result.dart';
 import 'package:gameplay_app/src/features/home/datasource/datasource/i_game_room_datasource.dart';
 import 'package:gameplay_app/src/features/home/domain/models/game_room_model.dart';
 import 'package:gameplay_app/src/features/home/domain/repositories/i_game_room_repository.dart';
@@ -61,6 +63,17 @@ class GameRoomRepository implements IGameRoomRepository {
 
     final result = await _gameRoomDataSource.createGameRoom(request);
     return CreateGameRoomResult(
+      message: result.message,
+      isSuccess: result.isSuccess,
+    );
+  }
+
+  @override
+  Future<EnterGameRoomResult> enterGameRoom(int idGameRoom, int idUser) async {
+    var request = EnterGameRoomRequest(idGameRoom: idGameRoom, idUser: idUser);
+
+    var result = await _gameRoomDataSource.enterGameRoom(request);
+    return EnterGameRoomResult(
       message: result.message,
       isSuccess: result.isSuccess,
     );

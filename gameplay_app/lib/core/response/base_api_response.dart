@@ -24,6 +24,7 @@ class FailureApiResponse extends IBaseApiResponse {
   FailureApiResponse._({
     required super.statusCode,
     required super.message,
+    // ignore: unused_element
     super.result,
     super.isSuccess = false,
   });

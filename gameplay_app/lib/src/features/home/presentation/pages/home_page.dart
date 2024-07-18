@@ -38,7 +38,7 @@ class HomePage extends StatelessWidget {
                       SizedBox(height: 32),
                       HomeCategories(),
                       SizedBox(height: 32),
-                      HomeListClassRooms()
+                      HomeListGameRooms()
                     ],
                   ),
                 )

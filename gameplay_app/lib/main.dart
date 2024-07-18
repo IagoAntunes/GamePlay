@@ -127,3 +127,9 @@ class MyHttpOverrides extends HttpOverrides {
           (X509Certificate cert, String host, int port) => true;
   }
 }
+// Terminar pós(Longo Prazo)
+// Especializar em serviços externos
+
+// Realizar cursos alura Android
+// Especializar Kotlin - BackEnd
+// Especializar Flutter

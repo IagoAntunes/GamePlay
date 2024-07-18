@@ -46,7 +46,7 @@ class _HomeCategoriesState extends State<HomeCategories> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => CreateGameRoomPage(
-                        selectedCategory: index,
+                        selectedCategory: successState.listCategories[index],
                       ),
                     ),
                   );

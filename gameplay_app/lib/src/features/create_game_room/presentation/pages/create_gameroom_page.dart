@@ -4,6 +4,7 @@ import 'package:gameplay_app/core/theme/app_colors.dart';
 import 'package:gameplay_app/core/widgets/c_text_field.dart';
 import 'package:gameplay_app/src/features/create_game_room/presentation/cubits/create_gameroom_cubit.dart';
 import 'package:gameplay_app/src/features/create_game_room/presentation/states/create_gameroom_state.dart';
+import 'package:gameplay_app/src/features/home/domain/models/category_model.dart';
 import 'package:gameplay_app/src/features/list_games/presentation/pages/list_games_pages.dart';
 import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart';
@@ -17,7 +18,7 @@ class CreateGameRoomPage extends StatefulWidget {
     this.selectedCategory,
   });
 
-  final int? selectedCategory;
+  final CategoryModel? selectedCategory;
 
   @override
   State<CreateGameRoomPage> createState() => _CreateGameRoomPageState();
@@ -29,6 +30,9 @@ class _CreateGameRoomPageState extends State<CreateGameRoomPage> {
   @override
   void initState() {
     super.initState();
+    if (widget.selectedCategory != null) {
+      _createGameRoomCubit.setCategory(widget.selectedCategory!);
+    }
   }
 
   final _dayMonthController = TextEditingController();

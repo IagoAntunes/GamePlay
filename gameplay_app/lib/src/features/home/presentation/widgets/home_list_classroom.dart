@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gameplay_app/src/features/game_room_info/presentation/pages/game_room_info_page.dart';
 import 'package:gameplay_app/src/features/home/presentation/cubits/home_list_game_room_cubit.dart';
 import 'package:gameplay_app/src/features/home/presentation/states/home_list_game_room_state.dart';
 import 'package:get_it/get_it.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../../core/theme/app_colors.dart';
 
-class HomeListClassRooms extends StatefulWidget {
-  const HomeListClassRooms({super.key});
+class HomeListGameRooms extends StatefulWidget {
+  const HomeListGameRooms({super.key});
 
   @override
-  State<HomeListClassRooms> createState() => _HomeListClassRoomsState();
+  State<HomeListGameRooms> createState() => _HomeListGameRoomsState();
 }
 
-class _HomeListClassRoomsState extends State<HomeListClassRooms> {
+class _HomeListGameRoomsState extends State<HomeListGameRooms> {
   final _homeListGameRoomCubit = GetIt.I.get<HomeListGameRoomCubit>();
 
   @override
@@ -78,6 +81,16 @@ class _HomeListClassRoomsState extends State<HomeListClassRooms> {
                         ),
                       ),
                       itemBuilder: (context, index) => ListTile(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => GameRoomInfo(
+                                gameRoom: successState.gameRooms[index],
+                              ),
+                            ),
+                          );
+                        },
                         leading: Image.network(
                           successState.gameRooms[index].game.imageUrl,
                         ),
@@ -118,15 +131,17 @@ class _HomeListClassRoomsState extends State<HomeListClassRooms> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                const Row(
+                                Row(
                                   children: [
-                                    Icon(
+                                    const Icon(
                                       Icons.calendar_month,
                                       color: AppColors.primary,
                                     ),
                                     Text(
-                                      "Sex 18/06 ás 21:00h",
-                                      style: TextStyle(
+                                      formatDateTime(successState
+                                          .gameRooms[index].date
+                                          .toString()),
+                                      style: const TextStyle(
                                         color: AppColors.textHeading,
                                         fontSize: 13,
                                         fontWeight: FontWeight.w500,
@@ -166,5 +181,14 @@ class _HomeListClassRoomsState extends State<HomeListClassRooms> {
         _ => Container(),
       },
     );
+  }
+
+  String formatDateTime(String dateTimeString) {
+    if (dateTimeString == "today") return '';
+    DateTime dateTime = DateTime.parse(dateTimeString);
+    initializeDateFormatting('pt_BR', null);
+    Intl.defaultLocale = 'pt_BR';
+    String formattedDate = DateFormat("E dd/MM 'às' HH:mm'h'").format(dateTime);
+    return formattedDate;
   }
 }

@@ -39,8 +39,8 @@ class _HomeHeaderState extends State<HomeHeader> {
                 borderRadius: BorderRadius.circular(8),
               ),
               child: const Icon(
-                Icons.person,
-                color: Colors.black,
+                Icons.person_2_outlined,
+                color: Colors.white,
               ),
             ),
             const SizedBox(width: 16),

@@ -2,11 +2,13 @@ class GameModel {
   int id;
   String name;
   String imageUrl;
+  String bannerUrl;
 
   GameModel({
     required this.id,
     required this.name,
     required this.imageUrl,
+    required this.bannerUrl,
   });
 
   factory GameModel.fromMap(Map<String, dynamic> map) {
@@ -14,6 +16,7 @@ class GameModel {
       id: map['id'],
       name: map['name'],
       imageUrl: map['imageUrl'],
+      bannerUrl: map['bannerUrl'],
     );
   }
 
@@ -22,6 +25,7 @@ class GameModel {
       'id': id,
       'name': name,
       'imageUrl': imageUrl,
+      'bannerUrl': bannerUrl,
     };
   }
 }

@@ -14,6 +14,7 @@ class OnBoardingPage extends StatefulWidget {
   const OnBoardingPage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _OnBoardingPageState createState() => _OnBoardingPageState();
 }
 

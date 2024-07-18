@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gameplay_app/src/features/create_game_room/presentation/cubits/create_gameroom_cubit.dart';
+import 'package:gameplay_app/src/features/home/domain/models/category_model.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../../../../core/theme/app_colors.dart';
@@ -14,7 +15,7 @@ class CreateGameRoomCategories extends StatefulWidget {
     required this.createGameRoomCubit,
   });
 
-  final int? selectedCategory;
+  final CategoryModel? selectedCategory;
   final CreateGameRoomCubit createGameRoomCubit;
 
   @override
@@ -26,7 +27,7 @@ class _CreateGameRoomCategoriesState extends State<CreateGameRoomCategories> {
   @override
   void initState() {
     super.initState();
-    _selectedCategory = widget.selectedCategory ?? 0;
+    _selectedCategory = widget.selectedCategory?.id ?? 0;
     _createGameRoomCategoriesCubit.getCategories();
   }
 
@@ -69,13 +70,16 @@ class _CreateGameRoomCategoriesState extends State<CreateGameRoomCategories> {
                     borderRadius: BorderRadius.circular(8),
                     onTap: () {
                       setState(() {
-                        _selectedCategory = index;
+                        _selectedCategory = successState.categories[index].id;
                       });
                       widget.createGameRoomCubit
                           .setCategory(successState.categories[index]);
                     },
                     child: Opacity(
-                      opacity: _selectedCategory == index ? 1 : 0.5,
+                      opacity:
+                          _selectedCategory == successState.categories[index].id
+                              ? 1
+                              : 0.5,
                       child: Container(
                         constraints: const BoxConstraints(
                           minWidth: 104,

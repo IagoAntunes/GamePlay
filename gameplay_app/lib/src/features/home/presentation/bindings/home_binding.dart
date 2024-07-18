@@ -1,5 +1,6 @@
 import 'package:gameplay_app/src/features/create_game_room/presentation/cubits/create_gameroom_categories_cubit.dart';
 import 'package:gameplay_app/src/features/create_game_room/presentation/cubits/create_gameroom_cubit.dart';
+import 'package:gameplay_app/src/features/game_room_info/presentation/cubits/game_room_info_cubit.dart';
 import 'package:gameplay_app/src/features/home/datasource/datasource/categories_datasource.dart';
 import 'package:gameplay_app/src/features/home/datasource/datasource/game_room_datasource.dart';
 import 'package:gameplay_app/src/features/home/datasource/datasource/i_categories_datasource.dart';
@@ -26,6 +27,7 @@ class HomeBinding {
     setUpCreateGameRoom();
     setUpHomeListGameRoom();
     setUpGames();
+    setUpGameRoomInfo();
     getIt.registerFactory<ICategoriesDataSource>(
         () => CategoriesDataSource(httpService: getIt()));
     getIt.registerFactory<ICategoriesRepository>(
@@ -49,6 +51,17 @@ class HomeBinding {
 
     getIt.registerFactory(
       () => CreateGameRoomCubit(
+        gameRoomRepository: getIt(),
+        secureStorage: getIt(),
+      ),
+    );
+  }
+
+  static Future<void> setUpGameRoomInfo() async {
+    var getIt = GetIt.instance;
+
+    getIt.registerFactory(
+      () => GameRoomInfoCubit(
         gameRoomRepository: getIt(),
         secureStorage: getIt(),
       ),
