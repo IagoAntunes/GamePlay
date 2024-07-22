@@ -53,6 +53,42 @@ Para instalar este projeto, siga os seguintes passos:
 - [shared_preferences](https://pub.dev/packages/get_storage) - Utilizado para guardar informações offline.
 - [flutter_secure_storage](https://pub.dev/packages/internet_connection_checker) - Utilizado para guardar dados sensíveis do usuário.
 
+## Arquitetura
+  
+Este projeto utiliza a **Clean Architecture** para organizar o código de maneira modular e desacoplada, facilitando a manutenção e evolução do sistema. A estrutura de pastas está organizada da seguinte forma:
+
+### Estrutura de Pastas
+
+```
+lib
+│
+├── core
+│
+├── services
+|
+├── src/features
+
+```
+
+- **core:** Contem os códigos e regras que são compartilhadas entre as funcionalidades do aplicativo.
+- **features** Contem os códigos de cada funcionalidade.
+- **services** Contem as abstrações e implementações de serviços como http, banco de dados.
+
+```
+features
+│
+├── domain
+│
+├── datasource
+│
+└── presentation
+```
+- **domain:** Contém as abstrações do repositório e modelos (entities) que representam os dados fundamentais da aplicação.
+
+- **datasource:** Responsável pela implementação das fontes de dados externas e objetos de acesso a dados (DAO).
+
+- **presentation:** Contém os códigos relacionados à interface do usuário (UI) e controladores.
+
 </details>
 
 ## :computer: BackEnd
