@@ -25,15 +25,20 @@ class AppBinding {
       ),
     );
     getIt.registerFactory<IAuthDataSource>(
-        () => AuthDataSource(httpService: getIt()));
+      () => AuthDataSource(httpService: getIt()),
+    );
     getIt.registerFactory<IAuthRepository>(
-        () => AuthRepository(dataSource: getIt()));
+      () => AuthRepository(dataSource: getIt()),
+    );
+
     getIt.registerSingleton(
       AuthCubit(
         authRepository: getIt(),
         controlAuthCubit: getIt(),
       ),
     );
+
+    // getIt.registerSingleton<ControlAuthCubit>()
   }
 
   static Future<void> _setUpSharedPackages() async {

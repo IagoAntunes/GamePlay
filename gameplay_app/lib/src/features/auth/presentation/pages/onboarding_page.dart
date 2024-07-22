@@ -7,8 +7,9 @@ import 'package:gameplay_app/src/features/auth/presentation/states/auth_state.da
 import 'package:gameplay_app/src/features/auth/presentation/widgets/login_widget.dart';
 import 'package:gameplay_app/src/features/auth/presentation/widgets/onboarding_widget.dart';
 import 'package:gameplay_app/src/features/auth/presentation/widgets/register_widget.dart';
-import 'package:gameplay_app/src/features/home/presentation/pages/home_page.dart';
 import 'package:get_it/get_it.dart';
+
+import '../../../../../core/control_auth/control_auth.cubit.dart';
 
 class OnBoardingPage extends StatefulWidget {
   const OnBoardingPage({super.key});
@@ -29,7 +30,10 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
     });
   }
 
-  void backToOnBoarding() {
+  void backToOnBoarding() async {
+    await Future.delayed(
+      kThemeAnimationDuration * 2,
+    );
     setState(() {
       _currentState = OnBoardingState.onboarding;
     });
@@ -40,7 +44,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
   final _keyAnimate = GlobalKey();
 
   final cubit = GetIt.I.get<AuthCubit>();
-
+  final cubitControl = GetIt.I.get<ControlAuthCubit>();
   void _loginListeners(Object? state) {
     if (state is SuccessLoginListener) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -48,11 +52,10 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
           content: Text('Login realizado com sucesso!'),
         ),
       );
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const HomePage(),
-        ),
+      cubitControl.login(
+        state.token,
+        state.username,
+        state.id,
       );
     } else if (state is FailureLoginListener) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -72,6 +75,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
           content: Text('Cadastro realizado com sucesso!'),
         ),
       );
+      backToOnBoarding();
     } else if (state is FailureRegisterListener) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -149,7 +153,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                 child: Padding(
                   padding: const EdgeInsets.only(top: 8.0),
                   child: AnimatedSwitcher(
-                    duration: const Duration(milliseconds: 500),
+                    duration: kThemeAnimationDuration * 2,
                     child: _getCurrentContent(),
                   ),
                 ),
@@ -161,7 +165,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
     );
   }
 
-  Widget _getCurrentContent() {
+  _getCurrentContent() {
     switch (_currentState) {
       case OnBoardingState.onboarding:
         return OnboardingWidget(

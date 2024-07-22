@@ -55,7 +55,7 @@ class ResponseApiData {
     return FailureApiResponse._(
       statusCode: statusCode ?? 500,
       message: responseData['message'] ?? "Falha",
-      isSuccess: responseData['isSuccess'],
+      isSuccess: responseData['isSuccess'] ?? false,
     );
   }
 }

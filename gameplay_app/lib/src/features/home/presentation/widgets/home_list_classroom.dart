@@ -89,7 +89,8 @@ class _HomeListGameRoomsState extends State<HomeListGameRooms> {
                                 gameRoom: successState.gameRooms[index],
                               ),
                             ),
-                          );
+                          ).then((value) =>
+                              _homeListGameRoomCubit.getAllGameRooms());
                         },
                         leading: Image.network(
                           successState.gameRooms[index].game.imageUrl,

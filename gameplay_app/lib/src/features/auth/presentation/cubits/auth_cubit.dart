@@ -9,10 +9,8 @@ class AuthCubit extends Cubit<IAuthState> {
       {required IAuthRepository authRepository,
       required ControlAuthCubit controlAuthCubit})
       : _authRepository = authRepository,
-        _controlAuthCubit = controlAuthCubit,
         super(IdleAuthState());
 
-  final ControlAuthCubit _controlAuthCubit;
   final IAuthRepository _authRepository;
 
   void registerUser(String username, String password) async {
@@ -30,12 +28,12 @@ class AuthCubit extends Cubit<IAuthState> {
     emit(LoadingAuthState());
     final result = await _authRepository.login(username, password);
     if (result.isSuccess) {
-      _controlAuthCubit.login(
-        result.token,
-        result.username,
-        result.id,
-      );
-      emit(SuccessLoginListener(message: result.message));
+      emit(SuccessLoginListener(
+        message: result.message,
+        id: result.id,
+        token: result.token,
+        username: result.username,
+      ));
     } else {
       emit(FailureLoginListener(message: result.message));
     }

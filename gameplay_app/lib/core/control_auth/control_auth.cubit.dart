@@ -19,17 +19,19 @@ class ControlAuthCubit extends Cubit<IControlAuthState> {
           ),
         );
 
-  void logout() {
-    _secureStorage.set<String>(AppKeysKeyValueStorage.token, '');
-    _sharedPreferencesService.set<String>(AppKeysKeyValueStorage.username, '');
-    emit(LogoutControlAuthListener());
+  void logout() async {
+    await _secureStorage.set<String>(AppKeysKeyValueStorage.token, '');
+    await _sharedPreferencesService.set<String>(
+        AppKeysKeyValueStorage.username, '');
+
+    emit(ControlAuthState(isAuthenticated: false));
   }
 
   void login(String token, String username, int idUser) async {
-    _secureStorage.set<String>(AppKeysKeyValueStorage.token, token);
-    _secureStorage.set<int>(AppKeysKeyValueStorage.idUser, idUser);
+    await _secureStorage.set<String>(AppKeysKeyValueStorage.token, token);
+    await _secureStorage.set<int>(AppKeysKeyValueStorage.idUser, idUser);
     await _sharedPreferencesService.set<String>(
         AppKeysKeyValueStorage.username, username);
-    emit(LoggedControlAuthListener());
+    emit(ControlAuthState(isAuthenticated: true));
   }
 }

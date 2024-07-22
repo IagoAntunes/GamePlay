@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gameplay_app/core/bindings/app_binding.dart';
 import 'package:gameplay_app/core/control_auth/control_auth.cubit.dart';
 import 'package:gameplay_app/core/control_auth/control_auth_state.dart';
-import 'package:gameplay_app/core/theme/app_colors.dart';
+import 'package:gameplay_app/core/theme/app_theme.dart';
 import 'package:gameplay_app/core/url/app_keys_keyvalue_storage.dart';
 import 'package:gameplay_app/services/database/secure_storage/i_secure_storage.dart';
 import 'package:gameplay_app/src/features/auth/presentation/pages/onboarding_page.dart';
@@ -36,84 +36,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'GamePlay',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: AppColors.boxes1,
-        ),
-        datePickerTheme: DatePickerThemeData(
-          backgroundColor: AppColors.boxes1,
-          surfaceTintColor: Colors.white,
-          dayStyle: const TextStyle(
-            color: Colors.white,
-          ),
-          weekdayStyle: const TextStyle(
-            color: Colors.white,
-          ),
-          yearStyle: const TextStyle(
-            color: Colors.white,
-          ),
-          dayForegroundColor: MaterialStateProperty.resolveWith((states) {
-            if (states.contains(MaterialState.disabled)) {
-              return Colors.grey;
-            }
-            return Colors.white;
-          }),
-          yearForegroundColor:
-              const MaterialStatePropertyAll<Color>(Colors.white),
-          headerForegroundColor: Colors.white,
-          rangePickerHeaderForegroundColor: Colors.white,
-          todayForegroundColor:
-              const MaterialStatePropertyAll<Color>(Colors.white),
-          rangeSelectionOverlayColor:
-              const MaterialStatePropertyAll<Color>(Colors.white),
-          rangePickerSurfaceTintColor: Colors.white,
-          dayOverlayColor:
-              const MaterialStatePropertyAll<Color>(AppColors.boxes2),
-          headerHeadlineStyle: const TextStyle(
-            color: Colors.white,
-          ),
-          headerHelpStyle: const TextStyle(
-            color: Colors.white,
-          ),
-        ),
-        timePickerTheme: const TimePickerThemeData(
-          backgroundColor: AppColors.boxes1,
-          dialBackgroundColor: AppColors.boxes2,
-          dialTextColor: Colors.white,
-          dialTextStyle: TextStyle(
-            color: Colors.white,
-          ),
-          dayPeriodColor: AppColors.boxes2,
-          dayPeriodTextColor: Colors.white,
-          hourMinuteColor: AppColors.boxes2,
-          hourMinuteTextColor: Colors.white,
-          timeSelectorSeparatorColor: MaterialStatePropertyAll(
-            Colors.white,
-          ),
-          helpTextStyle: TextStyle(
-            color: Colors.white,
-          ),
-        ),
-        useMaterial3: true,
-      ),
-      home: BlocListener(
-        listener: (context, state) {
-          if (state is LogoutControlAuthListener) {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => const OnBoardingPage()),
-            );
-          } else if (state is LoggedControlAuthListener) {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => const HomePage()),
-            );
-          }
-        },
+      debugShowCheckedModeBanner: false,
+      theme: AppTheme.theme,
+      home: BlocBuilder<ControlAuthCubit, IControlAuthState>(
         bloc: _cubit,
-        child: _cubit.state.isAuthenticated
-            ? const HomePage()
-            : const OnBoardingPage(),
+        builder: (context, state) =>
+            state.isAuthenticated ? HomePage() : const OnBoardingPage(),
       ),
     );
   }
@@ -127,9 +55,3 @@ class MyHttpOverrides extends HttpOverrides {
           (X509Certificate cert, String host, int port) => true;
   }
 }
-// Terminar pós(Longo Prazo)
-// Especializar em serviços externos
-
-// Realizar cursos alura Android
-// Especializar Kotlin - BackEnd
-// Especializar Flutter

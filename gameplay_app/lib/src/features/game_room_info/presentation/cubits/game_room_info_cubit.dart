@@ -22,9 +22,11 @@ class GameRoomInfoCubit extends Cubit {
 
     var result = await _gameRoomRepository.enterGameRoom(idGameRoom, idUser!);
     if (result.isSuccess) {
-      //
+      emit(SuccessGameRoomInfoListener());
+      emit(SuccessGameRoomInfoState());
     } else {
-      //
+      emit(FailureGameRoomInfoListener());
+      emit(IdleGameRoomInfoState());
     }
   }
 

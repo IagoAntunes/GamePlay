@@ -25,7 +25,15 @@ class FailureRegisterListener extends IAuthListener {
 }
 
 class SuccessLoginListener extends IAuthListener {
-  SuccessLoginListener({required super.message});
+  String token;
+  String username;
+  int id;
+  SuccessLoginListener({
+    required super.message,
+    required this.id,
+    required this.token,
+    required this.username,
+  });
 }
 
 class FailureLoginListener extends IAuthListener {
