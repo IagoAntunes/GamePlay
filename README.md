@@ -5,14 +5,10 @@
 :iphone::red_circle: GamePlay App
 
 Aplicativo para lhe ajudar a conectar-se e organizar o momento de diversão e jogar com os amigos. Crie grupos para jogar seus games favoritos com seus amigos com esse App que possui autenticação.
-
-- Visualize abaixo o aplicativo: [Imagens e Vídeo](#em-uso--imagens-e-video)
-- Arquitetura: [Arquitetura](#arquitetura)
-- Tecnologias e Ferramentas: [Tecnologias e Ferramentas](#tecnologias-e-ferramentas)
 - Vídeo: [Em Breve]
 
 ## :iphone: FrontEnd (Aplicativo)
-
+- Flutter
 <details>
 <summary>Clique para Expandir!</summary>
 
@@ -60,7 +56,7 @@ Para instalar este projeto, siga os seguintes passos:
 </details>
 
 ## :computer: BackEnd
-
+- Spring Boot, Kotlin
 <details>
 <summary>Clique para Expandir!</summary>
 
