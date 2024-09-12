@@ -98,12 +98,15 @@ class _HomeListGameRoomsState extends State<HomeListGameRooms> {
                         title: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              successState.gameRooms[index].description,
-                              style: const TextStyle(
-                                color: AppColors.textHeading,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
+                            Flexible(
+                              child: Text(
+                                successState.gameRooms[index].description,
+                                style: const TextStyle(
+                                  color: AppColors.textHeading,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                overflow: TextOverflow.ellipsis,
                               ),
                             ),
                             Text(
