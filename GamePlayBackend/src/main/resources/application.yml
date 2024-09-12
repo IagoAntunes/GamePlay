@@ -1,16 +1,16 @@
 spring:
+  application:
+    name: gameplay
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/gameplay?useTimezone=true&serverTimezone=UTC
-    username: root
-    password: admin
+    url: jdbc:mysql://localhost:3306/gameplay
+    username: ---
+    password: ---
   jpa:
     open-in-view: false
     hibernate:
       ddl-auto: update
     show-sql: false
-server:
-  address: 192.168.5.178
 security:
   jwt:
     token:
