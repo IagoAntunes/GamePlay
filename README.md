@@ -4,7 +4,8 @@
 
 :iphone::red_circle: GamePlay App
 
-Aplicativo para lhe ajudar a conectar-se e organizar o momento de diversão e jogar com os amigos. Crie grupos para jogar seus games favoritos com seus amigos com esse App que possui autenticação.
+Aplicativo para lhe ajudar a conectar-se e organizar o momento de diversão e jogar com outros jogadores. Crie grupos para jogar seus games favoritos e encontre outros jogadores.
+
 - Vídeo: [Em Breve]
 
 ## :iphone: FrontEnd (Aplicativo)
